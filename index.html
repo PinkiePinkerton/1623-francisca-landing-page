@@ -625,7 +625,7 @@
         </div>
 
         <div class="pt-2">
-          <button type="submit" id="submitBtn" class="w-full gold-bg text-charcoal-950 font-bold py-4 rounded-xl text-sm tracking-wider uppercase shadow-xl hover:shadow-sand-500/30 transition transform hover:-translate-y-0.5 flex justify-center items-center gap-2">
+          <button type="submit" id="submitBtn" onclick="trackLeadSubmission()" class="w-full gold-bg text-charcoal-950 font-bold py-4 rounded-xl text-sm tracking-wider uppercase shadow-xl hover:shadow-sand-500/30 transition transform hover:-translate-y-0.5 flex justify-center items-center gap-2">
             <span>Unlock Private Dossier & Request Showing</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
           </button>
@@ -846,6 +846,24 @@
       // Show success regardless of network block to ensure seamless UX
       document.getElementById('leadCaptureForm').classList.add('hidden');
       document.getElementById('formSuccess').classList.remove('hidden');
+    }
+
+    // Explicit Button Click Lead Tracker
+    function trackLeadSubmission() {
+      if (typeof fbq === 'function') {
+        fbq('track', 'Lead', {
+          content_name: '1623 Francisca Rd NW Dossier',
+          value: 2200000.00,
+          currency: 'USD'
+        });
+      }
+      if (typeof gtag === 'function') {
+        gtag('event', 'generate_lead', {
+          event_category: 'form',
+          event_label: '1623 Francisca Rd NW Dossier Request',
+          value: 2200000.00
+        });
+      }
     }
 
     // Direct Phone Click Tracking
